@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List Users</title>
+</head>
+<body>
+<div id='root'></div>
+<script src="https://fb.me/react-15.0.1.js"></script>
+<script src="https://fb.me/react-dom-15.0.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<h2>List Users</h2>
+<script type="text/babel">
+    var User = React.createClass({
+        render: function () {
+            return (
+                <tr>
+                    <td>{this.props.user.id}</td>
+                    <td>{this.props.user.username}</td>
+                    <td>{this.props.user.numTasks}</td>
+                    <td>
+                        <div className="dropdown">
+                            <button type="button" class="btn btn-primary dropdown-toggle"
+                                    data-toggle="dropdown">Actions
+                            </button>
+                            <div className="dropdown-menu">
+                                <a className="dropdown-item" href="#">
+                                    <button type="button" className="btn"
+                                            data-toggle="modal" data-target="#viewUser">View
+                                    </button>
+                                </a>
+                                <a className="dropdown-item" href="#">
+                                    <button type="button" className="btn"
+                                            data-toggle="modal" data-target="#editUser">Edit
+                                    </button>
+                                </a>
+                                <a className="dropdown-item" href="#">
+                                    <button type="button" className="btn"
+                                            data-toggle="modal" data-target="#deleteUser">Delete
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>);
+        }
+    });
+    var UserTable = React.createClass({
+        render: function () {
+            var rows = [];
+            this.props.users.forEach(function (user) {
+                rows.push(<User user={user}/>);
+            });
+            return (
+                <div className="container-fluid">
+                    <table className="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Username</th>
+                            <th>Quantities of available tasks</th>
+                            <th>More</th>
+                        </tr>
+                        </thead>
+                        <tbody>{rows}</tbody>
+                    </table>
+                </div>);
+        }
+    });
+    var USERS = [
+        {id: 1, username: 'John', numTasks: '2'},
+        {id: 2, username: 'Tonny', numTasks: '1'},
+        {id: 3, username: 'Stark', numTasks: '0'},
+    ];
+    ReactDOM.render(
+        <UserTable users={USERS}/>, document.getElementById('root')
+    );
+</script>
+</body>
+</html>
